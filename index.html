@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YouTube NSFW Bot Takedown</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>YouTube NSFW Bot Takedown</h1>
+
+        <div class="warning">
+            ⚠️ This site is NOT affiliated with Google or YouTube.
+        </div>
+
+        <p class="desc">
+            This tool helps generate a report email for YouTube channels that appear to be bot accounts
+            promoting adult content through subscriptions or profile imagery.
+            The generated text is written to sound human, not automated.
+        </p>
+
+        <label>Reported Channel Link</label>
+        <input id="channelLink" type="text" placeholder="https://www.youtube.com/@example">
+
+        <label>Where was it seen?</label>
+        <select id="location">
+            <option>Shorts feed</option>
+            <option>Comments section</option>
+            <option>Subscriptions list</option>
+            <option>Recommended videos</option>
+        </select>
+
+        <button onclick="generateEmail()">Generate Report Email</button>
+
+        <label>Generated Email</label>
+        <textarea id="output" readonly></textarea>
+
+        <button onclick="copyEmail()">Copy Email</button>
+
+        <footer>
+            Community-made reporting helper • Not automated • Not AI-generated
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
