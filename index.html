@@ -1,49 +1,123 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>YouTube NSFW Bot Takedown</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>YouTube NSFW Bot Takedown — Report Tool</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header class="yt-header">
-        <div class="logo">YouTube</div>
-        <div class="fake-search"></div>
+  <div class="app">
+
+    <!-- top bar (YouTube-like) -->
+    <header class="topbar" role="banner">
+      <div class="left">
+        <button class="menu-btn" aria-label="Menu">
+          <span class="hamburger"></span>
+        </button>
+        <div class="brand">
+          <span class="brand-icon" aria-hidden="true"></span>
+          <span class="brand-text">YouTube</span>
+          <span class="pro-mark">Report Tool</span>
+        </div>
+      </div>
+
+      <div class="search">
+        <input id="searchInput" placeholder="Search reports or channels" />
+        <button id="searchBtn" aria-label="Search">Search</button>
+      </div>
+
+      <div class="right">
+        <button id="warningToggle" class="ghost">Safety info</button>
+        <div class="avatar" aria-hidden="true">U</div>
+      </div>
     </header>
 
-    <main class="container">
-        <h1>NSFW Bot Report Tool</h1>
+    <!-- main layout -->
+    <div class="layout">
+      <nav class="sidebar" aria-label="Main navigation">
+        <ul>
+          <li class="active"><span class="ico home"></span> Home</li>
+          <li><span class="ico shorts"></span> Reports</li>
+          <li><span class="ico subs"></span> History</li>
+          <li><span class="ico settings"></span> Settings</li>
+        </ul>
+      </nav>
 
-        <div class="warning">
-            ⚠️ Not affiliated with Google or YouTube.
-        </div>
+      <main class="main" role="main">
+        <section class="tool-card">
+          <h1>NSFW Bot Report Tool</h1>
 
-        <label>Bot Channel Link</label>
-        <input id="channelLink" placeholder="https://www.youtube.com/@channel">
+          <p class="lead">
+            Use this tool to prepare a formal report for YouTube Trust & Safety. This page is not affiliated with Google LLC or YouTube.
+          </p>
 
-        <label>Where was it seen?</label>
-        <select id="location">
+          <label class="field-label">Channel link</label>
+          <input id="channelLink" placeholder="https://www.youtube.com/@example" />
+
+          <label class="field-label">Where it was observed</label>
+          <select id="location">
             <option>Shorts feed</option>
             <option>Comments section</option>
             <option>Subscriptions list</option>
             <option>Recommended videos</option>
-        </select>
+          </select>
 
-        <button onclick="generateEmail()">Generate Report</button>
+          <div class="row">
+            <button id="generateBtn">Generate report</button>
+            <button id="openGmailBtn" class="secondary">Open in Gmail</button>
+            <button id="copyBtn" class="secondary">Copy text</button>
+          </div>
 
-        <label>Generated Email</label>
-        <textarea id="output" readonly></textarea>
+          <label class="field-label">Prepared message</label>
+          <textarea id="output" readonly></textarea>
+        </section>
 
-        <div class="actions">
-            <button onclick="openGmail()">Open Gmail</button>
-            <button onclick="copyEmail()">Copy Text</button>
+        <section class="history-card">
+          <h2>Report history</h2>
+          <ul id="history" class="history-list" aria-live="polite"></ul>
+        </section>
+      </main>
+    </div>
+
+    <!-- version label bottom-left -->
+    <div id="versionLabel" aria-hidden="true">v1.2.0</div>
+
+    <!-- warning modal popup -->
+    <div id="warningModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+      <div class="modal-content">
+        <header class="modal-header">
+          <h3 id="modalTitle">Important safety notice</h3>
+          <button id="modalClose" class="modal-close" aria-label="Close">✕</button>
+        </header>
+
+        <div class="modal-body">
+          <p>
+            This tool is a community-made helper to prepare reports for YouTube Trust & Safety. It is not
+            affiliated with, endorsed by, or operated by Google LLC or YouTube.
+          </p>
+
+          <p>
+            The tool does not automatically submit reports. Generated messages are intended for a human
+            to review and send through their own email or reporting channel. Do not use this tool to harass,
+            falsely accuse, or submit repeated automated abuse reports.
+          </p>
+
+          <label class="checkbox">
+            <input id="dontShow" type="checkbox" />
+            Do not show this message again
+          </label>
         </div>
 
-        <h2>Report History</h2>
-        <ul id="history"></ul>
-    </main>
+        <footer class="modal-footer">
+          <button id="modalOk" class="primary">I understand</button>
+        </footer>
+      </div>
+    </div>
 
-    <script src="script.js"></script>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
