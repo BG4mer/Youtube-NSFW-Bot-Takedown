@@ -1,32 +1,40 @@
+const historyList = document.getElementById("history");
+
 function generateEmail() {
     const link = document.getElementById("channelLink").value.trim();
     const location = document.getElementById("location").value;
     const output = document.getElementById("output");
 
     if (!link) {
-        output.value = "Please enter a YouTube channel link.";
+        output.value = "Please enter a channel link.";
         return;
     }
 
-    output.value =
+    const email =
 `Hello YouTube Trust & Safety Team,
 
-I’m reporting a YouTube channel that appears to be a bot account promoting adult content indirectly through its subscriptions and profile presentation.
+I am reporting a channel that appears to be a bot account promoting adult content through its subscriptions and profile presentation.
 
 Channel link:
 ${link}
 
-Where it was encountered:
+Where encountered:
 ${location}
 
-The account appears to engage in behavior that exposes inappropriate material to the general YouTube audience, including minors. This content does not seem to align with YouTube’s Community Guidelines, especially regarding child safety and spam or deceptive practices.
+This content appears publicly visible and may be accessible to minors. Please review this channel for possible violations of YouTube’s Community Guidelines.
 
-I’m asking that this channel be reviewed and appropriate action taken if it is found to be in violation of platform rules.
+Thank you for your time.
 
-Thank you for your time and attention to this matter.
-
-Sincerely,
 A concerned user`;
+
+    output.value = email;
+    saveHistory(link);
+}
+
+function openGmail() {
+    const text = encodeURIComponent(document.getElementById("output").value);
+    const url = `https://mail.google.com/mail/?view=cm&fs=1&to=trustandsafety@youtube.com&su=NSFW Bot Channel Report&body=${text}`;
+    window.open(url, "_blank");
 }
 
 function copyEmail() {
@@ -34,3 +42,24 @@ function copyEmail() {
     output.select();
     document.execCommand("copy");
 }
+
+function saveHistory(link) {
+    let history = JSON.parse(localStorage.getItem("reports")) || [];
+    history.unshift({ link, date: new Date().toLocaleString() });
+    history = history.slice(0, 10);
+    localStorage.setItem("reports", JSON.stringify(history));
+    renderHistory();
+}
+
+function renderHistory() {
+    historyList.innerHTML = "";
+    const history = JSON.parse(localStorage.getItem("reports")) || [];
+
+    history.forEach(r => {
+        const li = document.createElement("li");
+        li.textContent = `${r.link} — ${r.date}`;
+        historyList.appendChild(li);
+    });
+}
+
+renderHistory();
